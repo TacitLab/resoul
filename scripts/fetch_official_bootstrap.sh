@@ -5,6 +5,7 @@ WORKSPACE_DIR="${1:-/root/.openclaw/workspace}"
 DEST="$WORKSPACE_DIR/BOOTSTRAP.md"
 SOUL="$WORKSPACE_DIR/SOUL.md"
 USER_FILE="$WORKSPACE_DIR/USER.md"
+IDENTITY_FILE="$WORKSPACE_DIR/IDENTITY.md"
 URL="https://raw.githubusercontent.com/openclaw/openclaw/main/docs/reference/templates/BOOTSTRAP.md"
 TMP="$(mktemp "$WORKSPACE_DIR/.bootstrap.tmp.XXXXXX")"
 TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
@@ -25,6 +26,10 @@ if [[ -f "$USER_FILE" ]]; then
   mv "$USER_FILE" "$TRASH_DIR/USER.md.$TIMESTAMP"
 fi
 
+if [[ -f "$IDENTITY_FILE" ]]; then
+  mv "$IDENTITY_FILE" "$TRASH_DIR/IDENTITY.md.$TIMESTAMP"
+fi
+
 if command -v curl >/dev/null 2>&1; then
   curl -fsSL "$URL" -o "$TMP"
 elif command -v wget >/dev/null 2>&1; then
@@ -38,3 +43,4 @@ mv "$TMP" "$DEST"
 echo "Fetched official BOOTSTRAP.md to: $DEST"
 echo "Archived existing SOUL.md to: $TRASH_DIR/SOUL.md.$TIMESTAMP (if present)"
 echo "Archived existing USER.md to: $TRASH_DIR/USER.md.$TIMESTAMP (if present)"
+echo "Archived existing IDENTITY.md to: $TRASH_DIR/IDENTITY.md.$TIMESTAMP (if present)"
