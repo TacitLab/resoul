@@ -1,6 +1,6 @@
 ---
 name: resoul
-description: Fetch the latest official OpenClaw BOOTSTRAP.md from the upstream repository into the current workspace with a shell script. Use when the user wants to download, refresh, restore, or sync the official bootstrap template instead of maintaining a custom local copy. Triggers on requests like "download the official bootstrap", "refresh BOOTSTRAP.md from upstream", "use the official OpenClaw bootstrap", or "resoul".
+description: Give your OpenClaw a fresh soul by syncing the latest official BOOTSTRAP.md from the upstream repository into the current workspace with a shell script. Use when the user wants to download, refresh, restore, or sync the official bootstrap template instead of maintaining a custom local copy. Triggers on requests like "download the official bootstrap", "refresh BOOTSTRAP.md from upstream", "use the official OpenClaw bootstrap", or "resoul".
 ---
 
 # ReSoul
