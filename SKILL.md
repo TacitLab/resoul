@@ -11,11 +11,10 @@ Reset the workspace bootstrap state so the next fresh session can start from the
 
 1. Warn that running `resoul` will download the official `BOOTSTRAP.md` and clear the current `SOUL.md` and `USER.md` from the workspace root.
 2. Require an explicit second confirmation before executing anything. Do not treat vague replies like "ok" or "继续" as sufficient; require a clear confirmation that the user agrees to remove the current `SOUL.md` and `USER.md`.
-3. Back up the existing workspace `BOOTSTRAP.md` if it exists.
-4. Archive the current `SOUL.md` and `USER.md` into `.trash/` if they exist.
-5. Fetch the latest official upstream template.
-6. Write it to the workspace root as `BOOTSTRAP.md`.
-7. Tell the user to run `/new` after completion so the next session starts from the restored bootstrap flow.
+3. Archive the current `SOUL.md` and `USER.md` into `.trash/` if they exist.
+4. Fetch the latest official upstream template.
+5. Write it to the workspace root as `BOOTSTRAP.md`.
+6. Tell the user to run `/new` after completion so the next session starts from the restored bootstrap flow.
 
 Use the bundled script:
 
@@ -52,7 +51,6 @@ If the script cannot be used, run equivalent shell commands with an explicit bac
 
 Briefly report:
 - that the user gave the destructive confirmation
-- whether an existing `BOOTSTRAP.md` was backed up
 - whether `SOUL.md` and `USER.md` were archived/cleared
 - that the latest official upstream template was fetched
 - the destination path

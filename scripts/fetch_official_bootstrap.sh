@@ -17,10 +17,6 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if [[ -f "$DEST" ]]; then
-  cp "$DEST" "$DEST.bak.$TIMESTAMP"
-fi
-
 if [[ -f "$SOUL" ]]; then
   mv "$SOUL" "$TRASH_DIR/SOUL.md.$TIMESTAMP"
 fi
