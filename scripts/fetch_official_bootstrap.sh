@@ -18,6 +18,20 @@ cleanup() {
 }
 trap cleanup EXIT
 
+if command -v curl >/dev/null 2>&1; then
+  curl -fsSL "$URL" -o "$TMP"
+elif command -v wget >/dev/null 2>&1; then
+  wget -qO "$TMP" "$URL"
+else
+  echo "Neither curl nor wget is available." >&2
+  exit 1
+fi
+
+if [[ ! -s "$TMP" ]]; then
+  echo "Fetched BOOTSTRAP.md is empty." >&2
+  exit 1
+fi
+
 if [[ -f "$SOUL" ]]; then
   mv "$SOUL" "$TRASH_DIR/SOUL.md.$TIMESTAMP"
 fi
@@ -30,17 +44,8 @@ if [[ -f "$IDENTITY_FILE" ]]; then
   mv "$IDENTITY_FILE" "$TRASH_DIR/IDENTITY.md.$TIMESTAMP"
 fi
 
-if command -v curl >/dev/null 2>&1; then
-  curl -fsSL "$URL" -o "$TMP"
-elif command -v wget >/dev/null 2>&1; then
-  wget -qO "$TMP" "$URL"
-else
-  echo "Neither curl nor wget is available." >&2
-  exit 1
-fi
-
 mv "$TMP" "$DEST"
-echo "Fetched official BOOTSTRAP.md to: $DEST"
+echo "Fetched official BOOTSTRAP.md to temporary file, then wrote it to: $DEST"
 echo "Archived existing SOUL.md to: $TRASH_DIR/SOUL.md.$TIMESTAMP (if present)"
 echo "Archived existing USER.md to: $TRASH_DIR/USER.md.$TIMESTAMP (if present)"
 echo "Archived existing IDENTITY.md to: $TRASH_DIR/IDENTITY.md.$TIMESTAMP (if present)"

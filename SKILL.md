@@ -1,6 +1,6 @@
 ---
 name: resoul
-description: Give your OpenClaw a fresh soul by replacing the workspace bootstrap state with the latest official BOOTSTRAP.md from upstream after an explicit second confirmation. Use when the user wants to resoul, reset startup identity files, restore the official bootstrap, or intentionally wipe the current SOUL.md, USER.md, and IDENTITY.md before starting over. Triggers on requests like "resoul", "reset my soul", "restore official bootstrap", "clear soul and user", or "start over with the official bootstrap".
+description: Fully reset OpenClaw's persona/bootstrap state and restore the latest official BOOTSTRAP.md after an explicit second confirmation. Use when the user wants to resoul, reset or reinitialize the assistant, restore the default official bootstrap, start over from a fresh identity setup, or clear SOUL.md, USER.md, and IDENTITY.md to begin again. Triggers on requests like "resoul", "reset your soul", "reset your persona", "reinitialize yourself", "restore default bootstrap", "start over with a fresh identity", "重置你的人设", "恢复初始人格", "清空你的身份设定重新开始", or similar full-reset phrasing. Do not use for ordinary edits to SOUL.md, USER.md, or IDENTITY.md.
 ---
 
 # ReSoul
@@ -9,11 +9,11 @@ Reset the workspace bootstrap state so the next fresh session can start from the
 
 ## Primary workflow
 
-1. Warn that running `resoul` will download the official `BOOTSTRAP.md` and clear the current `SOUL.md`, `USER.md`, and `IDENTITY.md` from the workspace root.
-2. Require an explicit second confirmation before executing anything. Do not treat vague replies like "ok" or "继续" as sufficient; require a clear confirmation that the user agrees to remove the current `SOUL.md`, `USER.md`, and `IDENTITY.md`.
-3. Archive the current `SOUL.md`, `USER.md`, and `IDENTITY.md` into `.trash/` if they exist.
-4. Fetch the latest official upstream template.
-5. Write it to the workspace root as `BOOTSTRAP.md`.
+1. Warn that running `resoul` will fetch the official `BOOTSTRAP.md`, then archive the current `SOUL.md`, `USER.md`, and `IDENTITY.md` into `.trash/` and remove them from the workspace root if they exist.
+2. Require an explicit second confirmation before executing anything. Do not treat vague replies like "ok" or "继续" as sufficient; require a clear confirmation that the user agrees to archive and remove the current `SOUL.md`, `USER.md`, and `IDENTITY.md` from the workspace root.
+3. Fetch the latest official upstream template to a temporary file first, and only continue if the fetch succeeds.
+4. Archive the current `SOUL.md`, `USER.md`, and `IDENTITY.md` into `.trash/` if they exist.
+5. Write the fetched template to the workspace root as `BOOTSTRAP.md`.
 6. Tell the user to run `/new` after completion so the next session starts from the restored bootstrap flow.
 
 Use the bundled script:
@@ -38,14 +38,15 @@ https://raw.githubusercontent.com/openclaw/openclaw/main/docs/reference/template
 
 - Do not execute this skill without a second explicit confirmation in the current conversation.
 - Do not hand-author a replacement bootstrap unless the user explicitly asks for a customized variant after syncing the official file.
-- Only clear `SOUL.md`, `USER.md`, and `IDENTITY.md` in the workspace root; do not delete memory, project files, skills, or other workspace content.
-- Archive replaced files before removal when possible.
+- Only archive and remove `SOUL.md`, `USER.md`, and `IDENTITY.md` from the workspace root; do not delete memory, project files, skills, or other workspace content.
+- Fetch the official template successfully before archiving or removing any existing identity files.
+- Archive existing `SOUL.md`, `USER.md`, and `IDENTITY.md` into `.trash/` before removing them from the workspace root when those files exist.
 - Do not execute the bootstrap ritual automatically after syncing; stop after preparing the workspace and instruct the user to run `/new`.
 - Mention that the official template is written for a fresh workspace and should be reviewed before reuse in an existing workspace.
 
 ## Fallback
 
-If the script cannot be used, run equivalent shell commands with an explicit backup first.
+If the script cannot be used, run equivalent shell commands that (1) fetch the official `BOOTSTRAP.md` to a temporary file first, (2) archive existing `SOUL.md`, `USER.md`, and `IDENTITY.md` into `.trash/` if present, (3) write the fetched template to the workspace root as `BOOTSTRAP.md`, and (4) avoid touching memory, project files, skills, or other workspace content.
 
 ## Report back
 
